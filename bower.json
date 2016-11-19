@@ -1,0 +1,30 @@
+{
+  "name": "app",
+  "authors": [
+    "aprietof <adrianprieto00@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-aria": "^1.4.8",
+    "angular-messages": "^1.5.8",
+    "angular-animate": "1.5.8",
+    "angular-password": "^1.0.3",
+    "angular": "1.5.8",
+    "angularfire": "^2.1.0",
+    "angular-ui-router": "0.3.1",
+    "angular-sanitize": "1.5.8",
+    "font-awesome": "^4.7.0",
+    "materialize": "^0.97.8"
+  }
+}
