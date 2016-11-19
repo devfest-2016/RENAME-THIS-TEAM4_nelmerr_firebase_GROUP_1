@@ -35,7 +35,7 @@
         function redirectIfUser() {
           // Redirect to dashboard if user is signed in
           if (AuthenticationFactory.user() !== null) {
-            $state.go('dashboard')
+            $state.go('dashboard.home')
           }
         }
 
