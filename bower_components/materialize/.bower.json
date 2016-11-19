@@ -52,5 +52,6 @@
   },
   "_source": "https://github.com/Dogfalo/materialize.git",
   "_target": "^0.97.8",
-  "_originalSource": "materialize"
+  "_originalSource": "materialize",
+  "_direct": true
 }

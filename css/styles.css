@@ -1,0 +1,20 @@
+
+/* BODY
+  ------------------------------------------*/
+
+body {
+  font-family: Roboto, Arial, sans-serif;
+  background-color: #fafafa;
+  color: rgba(0,0,0,0.87);
+}
+
+/* CONTAINERS
+  ------------------------------------------*/
+
+.main {
+  min-height: 550px;
+}
+
+.home {
+  background-color: #ffffff;
+}
