@@ -24,7 +24,16 @@
           .state('dashboard', {
             url: '/dashboard',
             templateUrl: 'js/dashboard/dashboard.html',
-            controller: 'DashboardController as vm'
+            controller: 'DashboardController as vm',
+            resolve: {
+              // controller will not be loaded until $requireSignIn resolves
+              // Auth refers to our $firebaseAuth wrapper in the factory below
+              currentAuth: function($firebaseAuth) {
+                // $requireSignIn returns a promise so the resolve waits for it to complete
+                // If the promise is rejected, it will throw a $stateChangeError (see above)
+                return $firebaseAuth().$requireSignIn();
+              }
+            }
           })
         $urlRouterProvider.otherwise('/');
     });
