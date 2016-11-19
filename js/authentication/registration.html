@@ -1,0 +1,103 @@
+<!-- Registration Section -->
+<div class="section container">
+
+  <div class="row">
+
+    <br></br>
+
+    <div class="col s10 l8 offset-s1 offset-l2">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Registration</span>
+
+          <div class="registration-error">{{ vm.message }}</div>
+
+          <form name="form" autocomplete="off" ng-submit="vm.createUser(vm.newUser)">
+
+            <div class="input-field">
+              <input id="name"
+                    type="text"
+                    minlength="3"
+                    name="name"
+                    class="validate"
+                    ng-model="vm.newUser.name"
+                    required >
+              <label for="name">Name</label>
+
+               <div ng-messages="form.name.$error" ng-if="form.name.$dirty">
+                 <div ng-messages-include="js/authentication/messages.html"></div>
+               </div>
+            </div>
+
+            <div class="input-field">
+              <input id="email"
+                    type="email"
+                    name="email"
+                    class="validate"
+                    ng-model="vm.newUser.email"
+                    required >
+              <label for="email">Email</label>
+
+              <div ng-messages="form.email.$error" ng-if="form.email.$dirty">
+                <div ng-messages-include="js/authentication/messages.html"></div>
+              </div>
+            </div>
+
+            <div class="input-field">
+              <input id="password"
+                    type="password"
+                    name="password"
+                    class="validate"
+                    minlength="6"
+                    ng-model="vm.newUser.password"
+                    required >
+              <label for="password">Password</label>
+
+              <div ng-messages="form.password.$error" ng-if="form.password.$dirty">
+                <div ng-messages-include="js/authentication/messages.html"></div>
+              </div>
+            </div>
+
+            <div class="input-field col s6">
+              <select  name="role" ng-model="vm.newUser.role" class="browser-default" required>
+                <option value="" disabled selected>Please select a role</option>
+                <option value="restaurant">I'm a Restaurant</option>
+                <option value="vendor">I'm a Vendor</option>
+              </select>
+            </div>
+
+            <div class="input-field">
+              <button type="submit"
+                      class="waves-effect waves-light btn pull-right"
+                      ng-disabled="form.$invalid">
+                Sign up
+              </button>
+            </div>
+
+          </form>
+
+        </div><!-- End card-content -->
+
+        <br></br>
+
+        <div class="card-action center button">
+          <a class="waves-effect waves-light btn google"
+              id="google-button"
+              ng-click="vm.loginWithGoogle()">
+            <span class="icon"></span>
+            Register with Google
+          </a>
+          <!-- <a class="waves-effect waves-light btn facebook"><i class="fa fa-facebook-official"></i> Register with Facebook</a> -->
+        </div>
+
+        <div class="card-action center">
+          <a ui-sref="login">Login</a>
+        </div>
+
+      </div><!--End Card -->
+
+    </div><!-- End Col10 -->
+
+  </div><!-- Row -->
+
+</div><!-- End Registration Section -->

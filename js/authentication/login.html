@@ -1,0 +1,80 @@
+<!-- Login Section -->
+<div class="section container">
+
+  <div class="row">
+
+    <br></br>
+
+    <div class="col s10 l8 offset-s1 offset-l2">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Log in</span>
+
+          <div class="registration-error">{{ vm.message }}</div>
+
+          <!-- Login Form -->
+          <form  name="form" autocomplete="off" ng-submit="vm.loginWithPassword(vm.loginUser)">
+
+            <div class="input-field">
+              <input id="email"
+                  type="email"
+                  name="email"
+                  class="validate"
+                  ng-model="vm.loginUser.email"
+                  required>
+              <label for="email">Email</label>
+              <div ng-messages="form.email.$error" ng-if="form.email.$dirty">
+                <div ng-messages-include="js/authentication/messages.html"></div>
+              </div>
+            </div>
+
+            <div class="input-field">
+              <input id="password"
+                    type="password"
+                    class="validate"
+                    name="password"
+                    minlength="6"
+                    ng-model="vm.loginUser.password"
+                    required>
+              <label for="password">Password</label>
+              <div ng-messages="form.password.$error" ng-if="form.password.$dirty">
+                <div ng-messages-include="js/authentication/messages.html"></div>
+              </div>
+            </div>
+
+            <div class="input-field">
+              <button type="submit"
+                      class="waves-effect waves-light btn pull-right"
+                      ng-disabled="form.$invalid">
+                Login
+              </button>
+            </div>
+
+          </form><!-- End Login Form -->
+
+          <br></br>
+
+          </div>
+
+          <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+          <!-- Google Button -->
+          <div class="card-action center button">
+            <a class="waves-effect waves-light btn google" id="google-button"
+                ng-click="vm.loginWithGoogle()">
+                <span class="icon"></span>Login with Google</a>
+          </div><!-- End Google Button -->
+
+
+          <div class="card-action center">
+            <a ui-sref="register">Register</a> <a ui-sref="register">Forgot Password</a>
+          </div>
+
+        </div><!-- End Card Content -->
+
+      </div><!-- End Card -->
+    </div><!-- End col 10 -->
+
+  </div><!-- End row -->
+
+</div><!-- End Login Section -->
