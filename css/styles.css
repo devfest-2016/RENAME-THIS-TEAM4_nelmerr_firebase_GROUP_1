@@ -18,3 +18,171 @@ body {
 .home {
   background-color: #ffffff;
 }
+
+/* BUTTONS
+  ------------------------------------------*/
+
+/*a.btn {
+  background-color: salmon;
+}*/
+
+.waves-effect.waves-light.btn.facebook {
+  background-color: #1565c0;
+}
+
+.waves-effect.waves-light.btn.facebook:hover {
+  background-color: #1e88e5;
+}
+
+.waves-effect.waves-light.btn.google {
+  background-color: white;
+  color: dimgrey;
+}
+
+span.icon {
+  background: url('https://google-developers.appspot.com/identity/sign-in/g-normal.png') transparent 5px 50% no-repeat;
+  display: inline-block;
+  vertical-align: middle;
+  width: 42px;
+  height: 42px;
+}
+
+/* CARD
+  ------------------------------------------*/
+
+.card-action.center.button {
+  border-top: none;
+}
+
+/* MESSAGES
+  ------------------------------------------*/
+
+.messages {
+  font-size: 0.8rem;
+  color: red;
+}
+
+input[type=text].ng-invalid.ng-dirty,
+input[type=email].ng-invalid.ng-dirty,
+input[type=password].ng-invalid.ng-dirty {
+  border-bottom: 1px solid red;
+  box-shadow: none;
+}
+
+input.ng-valid {
+  color: #4CAF50;
+  border-bottom: 2px solid #4CAF50;
+}
+
+.registration-error {
+  font-size: 0.8rem;
+  color: red;
+}
+
+/* ************** ngANIMATE **************
+  ------------------------------------------*/
+
+/* TRANSITION ANIMATIONS FOR MAIN VIEW
+  ------------------------------------------*/
+
+/* The starting CSS styles for the enter animation */
+.fade.ng-enter {
+  transition:0.2s linear all;
+  opacity:0;
+}
+
+/* The finishing CSS styles for the enter animation */
+.fade.ng-enter.ng-enter-active {
+  opacity:1;
+}
+
+/* now the element will fade out before it is removed from the DOM */
+.fade.ng-leave {
+  transition:0.2s linear all;
+  opacity:1;
+}
+.fade.ng-leave.ng-leave-active {
+  opacity:0;
+}
+
+/* FOOTER
+  ------------------------------------------*/
+
+footer .stripes {
+    height: 10px;
+    width: 100%;
+    background-image: url("../public/images/footer.svg");
+}
+
+/* SIDE MENU BAR
+  ------------------------------------------*/
+  .side {
+    margin: 0;
+    padding: 0;
+    width: 20%;
+    background-color: #f1f1f1;
+    position: absolute;
+    height: 570px;
+    overflow:auto;
+  }
+
+  ul.sidebar {
+    list-style-type: none;
+
+  }
+
+  .sidebar li a {
+      display: block;
+      font-weight: 500;
+      color: rgba(0,0,0,0.54);
+      padding: 10px 25px;
+      text-decoration: none;
+      transition: background-color .1s ease;
+  }
+
+  /* Change the link color on hover */
+  .sidebar li a:hover {
+      background-color: #d8d8d8;
+      font-weight: 500;
+  }
+
+  .content {
+    position: absolute;
+    height: 570px;
+    overflow-x:auto;
+    padding-right: 4em;
+  }
+
+  /* Icon padding */
+  i.fa {
+    padding-right: 10px;
+  }
+
+  /* change side menu for icons only */
+  @media only screen
+  and (max-width : 725px)  {
+
+    span {
+      display: none;
+    }
+
+    i.fa {
+      text-align: center;
+      font-size: x-large;
+      padding: 0;
+      font-weight: normal;
+    }
+
+    .sidebar li a {
+      text-align: center;
+    }
+
+  }
+
+/* NAVBAR
+  ------------------------------------------*/
+
+.nav-wrapper {
+    margin-left: 30px;
+    margin-right: 20px;
+}
