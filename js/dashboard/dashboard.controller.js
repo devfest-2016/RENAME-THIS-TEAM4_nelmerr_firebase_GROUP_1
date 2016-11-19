@@ -2,14 +2,14 @@
 
   'use strict';
 
-  function DashboardController($scope, $firebaseObject, $firebaseArray, AuthenticationFactory) {
+  function DashboardController($scope, $firebaseObject, $firebaseArray, AuthenticationFactory, user) {
 
     var vm = this;
 
     const usersRef = firebase.database().ref('users')
 
     // vm VARIABLES
-
+    vm.store = user
 
 
     // CALLABLE METHODS
