@@ -18,4 +18,4 @@ test commit
 
 # Presentations and examples
 - [pitch template updated for our Hackathon] (http://bit.ly/dfnyc16-hackathon-pitch)
-- [example from previous years] (https://docs.google.com/presentation/d/1z0dE1G-Bb4XNmPakD7U3wkpiPoZTI01Y7KPSP6sXWFA/edit?usp=sharing)
+- [example from previous years] (https://docs.google.com/presentation/d/1z0dE1G-Bb4XNmPakD7U3wkpiPoZTI01Y7KPSP6sXWFA/edit?usp=sharing).
