@@ -34,20 +34,28 @@
 
   <title>VendoMatic</title>
 
- <!-- Navbar -->
-  <div>
-    <div class="navbar-fixed">
-      <nav class="light-blue lighten-1" role="navigation">
-        <div class="nav-wrapper"><a id="logo-container" class="brand-logo">VENDO</a>
-          <ul class="right hide-on-med-and-down">
-            <li ><a >Logout</a></li>
-            <li ><a >Register</a></li>
-            <li ><a ><i class="material-icons right">assignment_ind</i>Login</a></li>
-          </ul>
-          <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-        </div>
-      </nav><!-- End Navbar -->
-    </div>
+  <!-- Navbar -->
+   <div ng-controller="AuthenticationController as vm">
+     <div class="navbar-fixed">
+       <nav class="light-blue lighten-1" role="navigation">
+         <div class="nav-wrapper"><a id="logo-container" ui-sref="home" class="brand-logo">VENDOMATIC</a>
+           <ul class="right hide-on-med-and-down">
+             <li ng-if="vm.currentUser" class="ng-animate-disabled"><a ng-click="vm.logout()">Logout</a></li>
+             <li ng-if="!vm.currentUser" class="ng-animate-disabled"><a ui-sref="registration">Register</a></li>
+             <li ng-if="!vm.currentUser" class="ng-animate-disabled"><a ui-sref="login"><i class="material-icons right">assignment_ind</i>Login</a></li>
+           </ul>
+           <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+         </div>
+       </nav><!-- End Navbar -->
+     </div>
+
+     <!-- Mobile Navbar Links -->
+     <ul id="nav-mobile" class="side-nav">
+       <li><a ui-sref="registration" ng-hide="vm.currentUser">Register</a></li>
+       <li><a ui-sref="login" ng-hide="vm.currentUser"><i class="material-icons right">assignment_ind</i>Login</a></li>
+       <li><a ng-click="vm.logout()" ng-show="vm.currentUser">Logout</a></li>
+     </ul><!-- End Mobile Navbar Links -->
+   </div>
 
     <!-- Mobile Navbar Links -->
     <ul id="nav-mobile" class="side-nav">
