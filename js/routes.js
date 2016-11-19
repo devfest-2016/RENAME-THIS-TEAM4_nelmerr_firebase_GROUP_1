@@ -22,7 +22,6 @@
             controller: 'AuthenticationController as vm'
           })
           .state('dashboard', {
-            redirectTo: 'dashboard.home',
             url: '/dashboard',
             templateUrl: 'js/dashboard/dashboard.html',
             controller: 'DashboardController as vm',
@@ -44,32 +43,32 @@
           })
           // NESTED DASHBOARD ROUTES
           .state('dashboard.home', {
-            url: '', // Blank Url to make this a nested default route
+            url: '/home', // Blank Url to make this a nested default route
             templateUrl: 'js/dashboard/views/home.html',
             controller: 'DashboardController as vm'
           })
           .state('dashboard.orders', {
-            url: '/dashboard/orders',
+            url: '/orders',
             templateUrl: 'js/dashboard/views/orders.html',
             controller: 'DashboardController as vm'
           })
           .state('dashboard.messages', {
-            url: '/dashboard/messages',
+            url: '/messages',
             templateUrl: 'js/dashboard/views/messages.html',
             controller: 'DashboardController as vm'
           })
           .state('dashboard.products', {
-            url: '/dashboard/products',
+            url: '/products',
             templateUrl: 'js/dashboard/views/products.html',
             controller: 'DashboardController as vm'
           })
           .state('dashboard.invoices', {
-            url: '/dashboard/invoices',
+            url: '/invoices',
             templateUrl: 'js/dashboard/views/invoices.html',
             controller: 'DashboardController as vm'
           })
           .state('dashboard.vendors', {
-            url: '/dashboard/vendors',
+            url: '/vendors',
             templateUrl: 'js/dashboard/views/vendors.html',
             controller: 'DashboardController as vm'
           })

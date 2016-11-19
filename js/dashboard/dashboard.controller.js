@@ -3,7 +3,6 @@
   'use strict';
 
   function DashboardController($scope, $firebaseObject, $firebaseArray, AuthenticationFactory, user) {
-
     var vm = this;
 
     const usersRef = firebase.database().ref('users')
