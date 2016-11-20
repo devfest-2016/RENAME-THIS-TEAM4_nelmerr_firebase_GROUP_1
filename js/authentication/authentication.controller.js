@@ -43,6 +43,7 @@
         function createUser(user) {
             // If there is already a user logged in,
             // log them out before proceeding
+
             auth.signOut()
 
             return auth.createUserWithEmailAndPassword(user.email, user.password)
@@ -57,14 +58,20 @@
 
         // SAVE USER TO DATABASE
         function saveUser(userData, user) {
-            // Save user data at the /users endpoint
-            const usersRef = firebase.database().ref('users');
+            //Save user data at the /users endpoint
+            const usersRef = firebase.database().ref('users/'+userData.uid);
             // Append user into /users with UID
-            usersRef.child(userData.uid).set({
+            usersRef.set({
                 uid: userData.uid,
                 firstname: user.name,
                 email: userData.email,
-                role: user.role
+                role: user.role,
+                phone: user.phone,
+                pointOfContact: user.pointOfContact,
+                address: user.address,
+                city: user.city,
+                state: user.state,
+                zip: user.zip
             })
         }
 
