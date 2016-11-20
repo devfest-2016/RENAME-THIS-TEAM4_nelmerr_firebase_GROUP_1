@@ -39,6 +39,11 @@ body {
   color: dimgrey;
 }
 
+.waves-effect.waves-light.btn.delete {
+  background-color: red;
+}
+
+
 span.icon {
   background: url('https://google-developers.appspot.com/identity/sign-in/g-normal.png') transparent 5px 50% no-repeat;
   display: inline-block;
@@ -147,7 +152,6 @@ footer .stripes {
   }
 
   .content {
-    position: absolute;
     height: 570px;
     overflow-x:auto;
     padding-right: 4em;

@@ -14,4 +14,7 @@ $(document).ready(function () {
   // INITIALIZE SELECT INPUT
   $("select").material_select();
 
+  // INITIALIZE TOOLTIP
+  $('.tooltipped').tooltip({delay: 50});
+
 });

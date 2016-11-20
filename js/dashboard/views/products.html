@@ -1,3 +1,129 @@
-<h1>Products</h1>
+<h2>Products</h2>
 
-<p>Products will go here</p>
+<div class="row">
+  <div class="col s12">
+
+    <!--  Form -->
+    <form  name="form" autocomplete="off" ng-submit="vm.addProduct(vm.product)">
+
+      <div class="row">
+
+        <div class="input-field col s6">
+          <i class="material-icons prefix">mode_edit</i>
+          <input id="name"
+              type="text"
+              name="name"
+              class="validate"
+              ng-model="vm.product.name"
+              required>
+          <label for="name">Name</label>
+          <div ng-messages="form.name.$error" ng-if="form.name.$dirty">
+            <div ng-messages-include="js/authentication/messages.html"></div>
+          </div>
+        </div>
+
+        <div class="input-field col s6">
+          <i class="material-icons prefix">receipt</i>
+          <input id="price"
+              type="number"
+              name="price"
+              class="validate"
+              ng-model="vm.product.price"
+              required>
+          <label for="price">Price</label>
+          <div ng-messages="form.price.$error" ng-if="form.price.$dirty">
+            <div ng-messages-include="js/authentication/messages.html"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="input-field col s8">
+          <i class="material-icons prefix">description</i>
+          <input id="description"
+                type="text"
+                class="validate"
+                name="description"
+                minlength="6"
+                ng-model="vm.product.description"
+                required>
+          <label for="description">Description</label>
+          <div ng-messages="form.description.$error" ng-if="form.description.$dirty">
+            <div ng-messages-include="js/authentication/messages.html"></div>
+          </div>
+        </div>
+
+        <div class="input-field col s4">
+            <select  name="quantity" ng-model="vm.product.quantity" class="browser-default" required>
+              <option value="" disabled selected>Please select quantity</option>
+              <option value="cs">Case</option>
+              <option value="pc">Piece</option>
+              <option value="dz">Dozen</option>
+            </select>
+          </div>
+          <div ng-messages="form.quantity.$error" ng-if="form.quantity.$dirty">
+            <div ng-messages-include="js/authentication/messages.html"></div>
+          </div>
+        </div>
+
+        <div class="input-field">
+          <button type="submit"
+                  class="waves-effect waves-light btn pull-right"
+                  ng-disabled="form.$invalid">
+            Add Product +
+          </button>
+        </div>
+      </div>
+
+    </form><!-- End  Form -->
+  </div>
+</div>
+
+<div class="divider"></div>
+<br>
+
+<div class="row"> <!-- search box -->
+  <div class="col s6">
+    <nav style="background-color: white;">
+     <div class="nav-wrapper">
+       <form>
+         <div class="input-field" style="color:black;">
+           <input id="search" type="search" placeholder="Search item here" ng-model="vm.search">
+           <label for="search"><i style="color:black;"class="material-icons">search</i></label>
+         </div>
+       </form>
+     </div>
+   </nav>
+  </div>
+</div>  <!-- end search box -->
+
+<div class="row"> <!-- Products Table -->
+  <div class="col s12">
+    <table class="responsive striped">
+      <thead>
+        <tr>
+            <th data-field="name">Item Name</th>
+            <th data-field="price">Item Description</th>
+            <th data-field="price">Item Price</th>
+            <th data-field="id">Item Id</th>
+            <th data-field="id"></th>
+            <th data-field="id"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr ng-repeat="product in vm.products | orderBy:'name' | filter: {name: vm.search}">
+          <td>{{product.name}}</td>
+          <td>{{product.description}}</td>
+          <td>{{product.price | currency:"$ ":2}}</td>
+          <td>{{product.$id}}</td>
+          <td><a class="waves-effect waves-light btn"
+            ng-click="vm.editProduct()"><i class="material-icons">mode_edit</i></a></td>
+          <td><a class="waves-effect waves-light btn delete"
+            ng-click="vm.deleteProduct(product.$id)"><i class="material-icons">delete</i></a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>  <!-- End Products Table -->
