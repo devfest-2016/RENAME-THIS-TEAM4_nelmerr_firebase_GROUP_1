@@ -37,6 +37,7 @@
     vm.removeFromOrder = removeFromOrder
     vm.calculateTotal = calculateTotal
     vm.sendOrder = sendOrder
+    vm.deleteVendor = deleteVendor
 
     // INSTANTIADED METHODS
 
@@ -99,6 +100,20 @@
       .catch(function (error) {
         console.error(error);
       })
+    }
+
+    // DELETE VENDOR
+    function deleteVendor(id) {
+      var vendorObject = $firebaseObject(vendorsRef.child(id))
+      vendorObject.$remove()
+      .then(function (data) {
+        var toastContent = '<i style="color: green;" class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Vendor Removed Succesfuly'
+          // Display success message
+          Materialize.toast(toastContent, 3000)
+        })
+        .catch(function (error) {
+          console.error(error);
+        })
     }
 
     // ########### PLACING ORDERS SECTION ###########
