@@ -23,10 +23,19 @@
                     ng-model="vm.newUser.name"
                     required >
               <label for="name">Name</label>
-
                <div ng-messages="form.name.$error" ng-if="form.name.$dirty">
                  <div ng-messages-include="js/authentication/messages.html"></div>
                </div>
+            </div>
+            <div class="input-field">
+              <input type="text"
+                      id="pointOfContact"
+                      name="pointOfContact"
+                      class="validate"
+                      ng-model="vm.newUser.pointOfContact"
+                      required
+                      >
+                      <label for="pointOfContact">Point Of Contact:</label>
             </div>
 
             <div class="input-field">
@@ -43,6 +52,7 @@
               </div>
             </div>
 
+
             <div class="input-field">
               <input id="password"
                     type="password"
@@ -56,6 +66,47 @@
               <div ng-messages="form.password.$error" ng-if="form.password.$dirty">
                 <div ng-messages-include="js/authentication/messages.html"></div>
               </div>
+            </div>
+            <div class="input-field">
+              <input type="tel"
+                    name="phone"
+                    id="phone"
+                    ng-model="vm.newUser.phone"
+                    required >
+              <label for="phone">Phone:</label>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                    <input type="text"
+                    name="address"
+                    id="address"
+                    ng-model="vm.newUser.address">
+                    <label for="address">Address:</label>
+              </div>
+              <div class="input-field col s4">
+                    <input type="text"
+                    name="city"
+                    id="city"
+                    ng-model="vm.newUser.city">
+                    <label for="state">City:</label>
+              </div>
+              <div class="input-field col s4">
+                    <input type="text"
+                    name="state"
+                    id="state"
+                    ng-model="vm.newUser.state">
+                    <label for="state">State:</label>
+              </div>
+              <div class="input-field col s4">
+                    <input type="text"
+                    name="Zip"
+                    id="Zip"
+                    ng-model="vm.newUser.Zip">
+                    <label for="state">Zip:</label>                
+              </div>
+
+            </div>
+
             </div>
 
             <div class="input-field col s6">
