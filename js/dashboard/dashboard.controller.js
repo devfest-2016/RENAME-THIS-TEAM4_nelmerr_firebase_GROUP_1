@@ -8,15 +8,18 @@
     const usersRef = firebase.database().ref('users')
     const productsRef = usersRef.child(user.$id).child('products')
     const vendorsRef = usersRef.child(user.$id).child('vendors')
+    const myOrdersRef = usersRef.child(user.$id).child('orders')
     const productsArray = $firebaseArray(productsRef)
     const usersArray = $firebaseArray(usersRef)
     const vendorsArray = $firebaseArray(vendorsRef)
+    const myOrdersAray = $firebaseArray(myOrdersRef)
 
     // vm VARIABLES
     vm.store = user
     vm.products = productsArray
     vm.users = usersArray
     vm.myVendors = vendorsArray
+    vm.myOrders = myOrdersAray
     vm.orderVendor = {}
     vm.orderSheet = []
     vm.total = 0
@@ -173,16 +176,20 @@
       for (var i = 0; i < vm.orderSheet.length; i++) {
         finalOrder["item "+ i] = vm.orderSheet[i]
       }
-      finalOrder["checked"] = false
-      finalOrder["restaurant"] = vm.store.firstname
+
       var ordersUsersRef = usersRef.child(vm.orderVendorId).child('orders')
       var ordersArray = $firebaseArray(ordersUsersRef)
 
-      var myOrdersRef = usersRef.child(user.$id).child('orders')
-      var myOrdersAray = $firebaseArray(myOrdersRef)
+      var currentVendorUserRef = usersRef.child(vm.orderVendorId)
+      var currentVendorObject = $firebaseObject(currentVendorUserRef)
+
+      finalOrder["checked"] = false
+      finalOrder["checkedByVendor"] = false
+      finalOrder["restaurant"] = vm.store.firstname
+      finalOrder["vendor"] = vm.currentVendor.firstname
+
       ordersArray.$add(finalOrder)
       .then(function () {
-        finalOrder["checked"] = true;
         myOrdersAray.$add(finalOrder)
         var toastContent = '<i style="color: green;" class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Order sent succsesfully'
         // Display success message
