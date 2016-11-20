@@ -147,7 +147,7 @@ footer .stripes {
   }
 
   .content {
-    position: absolute;
+   
     height: 570px;
     overflow-x:auto;
     padding-right: 4em;

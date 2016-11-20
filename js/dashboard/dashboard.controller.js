@@ -5,11 +5,13 @@
   function DashboardController($scope, $firebaseObject, $firebaseArray, AuthenticationFactory, user) {
 
     var vm = this;
-
     const usersRef = firebase.database().ref('users')
 
+    vm.users = $firebaseArray(usersRef)
     // vm VARIABLES
     vm.store = user
+
+
 
 
     // CALLABLE METHODS
