@@ -1,13 +1,106 @@
-<h1>Orders</h1>
+<h3>Create a New Order</h3>
+<h4 ng-if="vm.total > 0">Your order total is {{vm.total | currency:"$ ":2}}</h4>
 
-<ul>
-  <li>Orderr 1</li>
-  <li>Orderr 1</li>
-  <li>Orderr 1</li>
-  <li>Orderr 1</li>
-  <li>Orderr 1</li>
-  <li>Orderr 1</li>
-  <li>Orderr 1</li>
-  <li>Orderr 1</li>
-  <li>Orderr 1</li>
-</ul>
+
+    <div class="row"> <!-- Select a Vendor -->
+      <div class="col s3">
+        <p>Select a Vendor</p>
+      </div>
+
+      <div class="col s5">
+        <select name="orderVendorId" class="browser-default" ng-model="vm.orderVendorId" ng-change="vm.changeVendor()"required>
+          <option ng-repeat="vendor in vm.myVendors" value="{{vendor.uid}}">{{vendor.firstname}}</option>
+        </select>
+      </div>
+
+
+      <div class="input-field col s4">
+        <button type="submit"
+                class="waves-effect waves-light btn pull-right"
+                ng-click="vm.sendOrder()"
+                ng-disabled="vm.total <= 0">
+          Place Order
+        </button>
+      </div>
+
+    </div><!-- End Select a Vendor -->
+
+    <div class="row">
+
+      <div class="col s12 l5">
+        <h4>Your Order</h4>
+        <div class="row"> <!-- Products Table -->
+          <table class="responsive striped">
+            <thead>
+              <tr>
+                  <th data-field="name">Name</th>
+                  <th data-field="price">Price</th>
+                  <th data-field="price">Quantity</th>
+                  <th data-field="id"></th>
+                  <th data-field="id">Total</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr ng-repeat="product in vm.orderSheet | orderBy:'name' ">
+                <td>{{product.name}}</td>
+                <td>{{product.price | currency:"$ ":2}}</td>
+                <th data-field="price">
+                  <button ng-click="vm.updateQuantityLess(product)">-</button>
+                  {{ product.quantity }}
+                  <button ng-click="vm.updateQuantityPlus(product)">+</button>
+                  </th>
+                <td>{{product.price * product.quantity}}</td>
+                <td><a class="btn-floating red" ng-click="vm.removeFromOrder(product.$id)"><i class="material-icons">delete</i></a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div><!-- End Products Table -->
+
+      </div>
+
+      <div class="col s12 l7">
+        <h4>Add Products</h4>
+
+
+          <div class="row"> <!-- search box -->
+            <div class="col s12">
+              <nav style="background-color: white;">
+               <div class="nav-wrapper">
+                 <form>
+                   <div class="input-field" style="color:black;">
+                     <input id="search" type="search" placeholder="Search item here" ng-model="vm.productSearch">
+                     <label for="search"><i style="color:black;"class="material-icons">search</i></label>
+                   </div>
+                 </form>
+               </div>
+             </nav>
+            </div>
+          </div>  <!-- end search box -->
+
+          <div class="row"> <!-- Products Table -->
+            <table class="responsive striped">
+              <thead>
+                <tr>
+                    <th data-field="name">Item Name</th>
+                    <th data-field="price">Item Description</th>
+                    <th data-field="price">Item Price</th>
+                    <!-- <th data-field="id">Item Id</th> -->
+                    <th data-field="id"></th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr ng-repeat="product in vm.currentVendorProducts | orderBy:'name' | filter: {name: vm.productSearch}">
+                  <td>{{product.name}}</td>
+                  <td>{{product.description}}</td>
+                  <td>{{product.price | currency:"$ ":2}}</td>
+                  <!-- <td>{{product.$id}}</td> -->
+                  <td><a class="waves-effect waves-light btn" ng-click="vm.addToOrder(product)"><i class="material-icons">add</i></a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div><!-- End Products Table -->
+      </div>
+
+    </div>

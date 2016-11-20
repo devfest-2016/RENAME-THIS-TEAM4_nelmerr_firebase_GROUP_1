@@ -17,6 +17,9 @@
     vm.products = productsArray
     vm.users = usersArray
     vm.myVendors = vendorsArray
+    vm.orderVendor = {}
+    vm.orderSheet = []
+    vm.total = 0
 
 
     // CALLABLE METHODS
@@ -24,10 +27,19 @@
     vm.deleteProduct = deleteProduct
     vm.editProduct = editProduct
     vm.addVendor = addVendor
+    vm.changeVendor = changeVendor
+    vm.addToOrder = addToOrder
+    vm.updateQuantityPlus = updateQuantityPlus
+    vm.updateQuantityLess = updateQuantityLess
+    vm.removeFromOrder = removeFromOrder
+    vm.calculateTotal = calculateTotal
+    vm.sendOrder = sendOrder
 
     // INSTANTIADED METHODS
 
     //### DEFINED FUNCTIONS ###
+
+    // ########### VENDOR PRODUCTS SECTION ###########
 
     // ADD PRODUCT TO CURRENT USER DATABASE
     function addProduct(product) {
@@ -63,6 +75,7 @@
       console.log('editing...');
     }
 
+    // ########### RESTAURANTS VENDOR MANAGEMENT SECTION ###########
 
     // ADD VENDOR TO MY VENDORS
     function addVendor(vendor) {
@@ -84,14 +97,103 @@
         console.error(error);
       })
     }
-        //
-        //
-        // usersRef.child(userData.uid).set({
-        //     uid: userData.uid,
-        //     firstname: user.name,
-        //     email: userData.email,
-        //     role: user.role
-        // })
+
+    // ########### PLACING ORDERS SECTION ###########
+
+    // CHANGE ORDER VENDOR
+    function changeVendor() {
+      for (var i = 0; i < vm.myVendors.length; i++) {
+        if (vm.myVendors[i].uid == vm.orderVendorId) {
+          var currentVendorProductsRef = usersRef.child(vm.orderVendorId).child('products')
+          var currentVendorProductsArray = $firebaseArray(currentVendorProductsRef)
+          vm.currentVendor = vm.myVendors[i]
+          vm.currentVendorProducts = currentVendorProductsArray
+          vm.orderSheet = []
+        }
+      }
+    }
+
+    // ADD PRODUCTS TO ORDER SHEET
+    function addToOrder(product) {
+      for (var i = 0; i < vm.orderSheet.length; i++) {
+        if (vm.orderSheet[i].$id === product.$id) {
+          var toastContent = '<i style="color: yellow;" class="fa fa-exclamation-triangle fa-lg" aria-hidden="true"></i> Item Already in order please update quantity'
+          // Display success message
+          Materialize.toast(toastContent, 4000)
+          return
+        }
+      }
+      product.quantity = 1
+      vm.orderSheet.push(product)
+      console.log(vm.orderSheet);
+      calculateTotal()
+    }
+
+    // UPDATE ITEM QUANTITY
+    function updateQuantityPlus(product) {
+      product.quantity++
+      calculateTotal()
+    }
+
+    // UPDATE ITEM QUANTITY
+    function updateQuantityLess(product) {
+      if (product.quantity === 0) {
+        product.quantity = 0
+        calculateTotal()
+        return
+      }
+      product.quantity = product.quantity - 1
+      calculateTotal()
+    }
+
+    // REMOVE ITEM FROM ORDER SHEET
+    function removeFromOrder(productId) {
+      for (var i = 0; i < vm.orderSheet.length; i++) {
+        if (vm.orderSheet[i].$id === productId) {
+          // Remove from ordersheet
+          vm.orderSheet.splice( i, 1 )
+          calculateTotal()
+        }
+      }
+    }
+
+    // CALCULATES TOTAL ORDER VALUE
+    function calculateTotal() {
+      var totalOrederValue = 0
+      for (var i = 0; i < vm.orderSheet.length; i++) {
+        totalOrederValue = totalOrederValue + (vm.orderSheet[i].price * vm.orderSheet[i].quantity)
+      }
+      vm.total = totalOrederValue
+      console.log('TOTAL IS = ' + vm.total);
+    }
+
+    // SEND ORDER TO VENDOR
+    function sendOrder() {
+      var finalOrder = {}
+      for (var i = 0; i < vm.orderSheet.length; i++) {
+        finalOrder["item "+ i] = vm.orderSheet[i]
+      }
+      finalOrder["checked"] = false
+      finalOrder["restaurant"] = vm.store.firstname
+      var ordersUsersRef = usersRef.child(vm.orderVendorId).child('orders')
+      var ordersArray = $firebaseArray(ordersUsersRef)
+
+      var myOrdersRef = usersRef.child(user.$id).child('orders')
+      var myOrdersAray = $firebaseArray(myOrdersRef)
+      ordersArray.$add(finalOrder)
+      .then(function () {
+        finalOrder["checked"] = true;
+        myOrdersAray.$add(finalOrder)
+        var toastContent = '<i style="color: green;" class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Order sent succsesfully'
+        // Display success message
+        Materialize.toast(toastContent, 3000)
+        // Refresh Page
+        $state.go('dashboard.orders', {}, {reload: true});
+      })
+      .catch(function(error) {
+        console.error(error);
+      })
+    }
 
 
   }
