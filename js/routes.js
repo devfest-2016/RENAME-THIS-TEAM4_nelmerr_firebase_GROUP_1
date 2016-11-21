@@ -26,12 +26,6 @@
             templateUrl: 'js/dashboard/dashboard.html',
             controller: 'DashboardController as vm',
             resolve: {
-              // Resolve the user object before loading the controller
-              user: function ($firebaseAuth, $firebaseObject) {
-                const usersRef = firebase.database().ref('users')
-                var userObj = $firebaseAuth().$getAuth();
-                return $firebaseObject(usersRef.child(userObj.uid)).$loaded()
-              },
               // controller will not be loaded until $requireSignIn resolves
               // Auth refers to our $firebaseAuth wrapper in the factory below
               currentAuth: function($firebaseAuth) {

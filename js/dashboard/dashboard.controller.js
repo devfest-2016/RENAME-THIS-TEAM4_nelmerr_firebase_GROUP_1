@@ -2,20 +2,29 @@
 
   'use strict';
 
-  function DashboardController($state, $scope, $firebaseObject, $firebaseArray, AuthenticationFactory, user) {
+  function DashboardController($state, $scope, $firebaseObject, $firebaseArray, AuthenticationFactory) {
+
     var vm = this;
 
+    // Define Authorized user
+    var user = AuthenticationFactory.user()
+
+    // Define firebase database References
     const usersRef = firebase.database().ref('users')
-    const productsRef = usersRef.child(user.$id).child('products')
-    const vendorsRef = usersRef.child(user.$id).child('vendors')
-    const myOrdersRef = usersRef.child(user.$id).child('orders')
+    const productsRef = usersRef.child(user.uid).child('products')
+    const vendorsRef = usersRef.child(user.uid).child('vendors')
+    const myOrdersRef = usersRef.child(user.uid).child('orders')
+
+    // Define firebase Objects and Arrays
+    const userObj = $firebaseObject(usersRef.child(user.uid))
     const productsArray = $firebaseArray(productsRef)
     const usersArray = $firebaseArray(usersRef)
     const vendorsArray = $firebaseArray(vendorsRef)
     const myOrdersAray = $firebaseArray(myOrdersRef)
 
+
     // vm VARIABLES
-    vm.store = user
+    vm.store = userObj
     vm.products = productsArray
     vm.users = usersArray
     vm.myVendors = vendorsArray
@@ -41,7 +50,7 @@
 
     // INSTANTIADED METHODS
 
-    //### DEFINED FUNCTIONS ###
+    // DEFINED FUNCTIONS
 
     // ########### VENDOR PRODUCTS SECTION ###########
 
@@ -49,11 +58,10 @@
     function addProduct(product) {
       productsArray.$add(product)
       .then(function (data) {
-        var toastContent = '<i style="color: green;" class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Product Added Succesfuly'
         // Refresh Page
         $state.go('dashboard.products', {}, { reload: true })
         // Display success message
-        Materialize.toast(toastContent, 3000)
+        onScreenMesage('check-circle', 'Product Added Succesfuly')
       })
       .catch(function (error) {
         console.error(error);
@@ -65,9 +73,8 @@
       var productObj = $firebaseObject(productsRef.child(id))
       productObj.$remove()
       .then(function (data) {
-        var toastContent = '<i style="color: green;" class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Product Removed Succesfuly'
         // Display success message
-        Materialize.toast(toastContent, 3000)
+        onScreenMesage('check-circle', 'Product Removed Succesfuly')
       })
       .catch(function (error) {
         console.error(error);
@@ -85,17 +92,15 @@
     function addVendor(vendor) {
       for (var i = 0; i < vendorsArray.length; i++) {
         if (vendorsArray[i].uid === vendor.uid) {
-          var toastContent = '<i style="color: yellow;" class="fa fa-exclamation-triangle fa-lg" aria-hidden="true"></i> This user is already a favorite'
           // Display success message
-          Materialize.toast(toastContent, 3000)
+          onScreenMesage('exclamation-triangle', 'This user is already a favorite', 'yellow')
           return
         }
       }
       vendorsArray.$add(vendor)
       .then(function (data) {
-        var toastContent = '<i style="color: green;" class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Vendor Added to Favorites'
         // Display success message
-        Materialize.toast(toastContent, 3000)
+        onScreenMesage('check-circle', 'Vendor Added to Favorites')
       })
       .catch(function (error) {
         console.error(error);
@@ -107,9 +112,8 @@
       var vendorObject = $firebaseObject(vendorsRef.child(id))
       vendorObject.$remove()
       .then(function (data) {
-        var toastContent = '<i style="color: green;" class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Vendor Removed Succesfuly'
           // Display success message
-          Materialize.toast(toastContent, 3000)
+          onScreenMesage('check-circle', 'Vendor Removed Succesfuly')
         })
         .catch(function (error) {
           console.error(error);
@@ -120,12 +124,18 @@
 
     // CHANGE ORDER VENDOR
     function changeVendor() {
+      // Loop over my vendors find selected vendor
       for (var i = 0; i < vm.myVendors.length; i++) {
         if (vm.myVendors[i].uid == vm.orderVendorId) {
+          // Find current vendor products reference in firebase database
           var currentVendorProductsRef = usersRef.child(vm.orderVendorId).child('products')
+          // Create a current vendor products array using firebase reference
           var currentVendorProductsArray = $firebaseArray(currentVendorProductsRef)
+          // Assign selected vendor to current vendor
           vm.currentVendor = vm.myVendors[i]
+          // Assign selected vendor products to current vendor products
           vm.currentVendorProducts = currentVendorProductsArray
+          // Clear order sheet
           vm.orderSheet = []
         }
       }
@@ -135,15 +145,15 @@
     function addToOrder(product) {
       for (var i = 0; i < vm.orderSheet.length; i++) {
         if (vm.orderSheet[i].$id === product.$id) {
-          var toastContent = '<i style="color: yellow;" class="fa fa-exclamation-triangle fa-lg" aria-hidden="true"></i> Item Already in order please update quantity'
           // Display success message
-          Materialize.toast(toastContent, 4000)
+          onScreenMesage('exclamation-triangle', 'Item Already in order please update quantity', 'yellow', 4000)
           return
         }
       }
+      // Assign quantity = 1
       product.quantity = 1
+      // Push product into order sheet array
       vm.orderSheet.push(product)
-      console.log(vm.orderSheet);
       calculateTotal()
     }
 
@@ -182,14 +192,13 @@
         totalOrederValue = totalOrederValue + (vm.orderSheet[i].price * vm.orderSheet[i].quantity)
       }
       vm.total = totalOrederValue
-      console.log('TOTAL IS = ' + vm.total);
     }
 
     // SEND ORDER TO VENDOR
     function sendOrder() {
       var finalOrder = {}
       for (var i = 0; i < vm.orderSheet.length; i++) {
-        finalOrder["item "+ i] = vm.orderSheet[i]
+        finalOrder["item "+ (i+1)] = vm.orderSheet[i]
       }
 
       var ordersUsersRef = usersRef.child(vm.orderVendorId).child('orders')
@@ -199,22 +208,28 @@
       var currentVendorObject = $firebaseObject(currentVendorUserRef)
 
       finalOrder["checked"] = false
-      finalOrder["checkedByVendor"] = false
       finalOrder["restaurant"] = vm.store.firstname
       finalOrder["vendor"] = vm.currentVendor.firstname
 
       ordersArray.$add(finalOrder)
       .then(function () {
         myOrdersAray.$add(finalOrder)
-        var toastContent = '<i style="color: green;" class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Order sent succsesfully'
         // Display success message
-        Materialize.toast(toastContent, 3000)
+        onScreenMesage('check-circle', 'Order sent succsesfully')
         // Refresh Page
         $state.go('dashboard.orders', {}, {reload: true});
       })
       .catch(function(error) {
         console.error(error);
       })
+    }
+
+    // DISPLAY ON SCREEN MESSAGE (using fontawesome icon names)
+    function onScreenMesage(icon, message, iconColor = "green", time = 3000) {
+      // Define toast HTML content
+      var toastContent = '<i style="color: ' + iconColor + ';" class="fa fa-' + icon + ' fa-lg" aria-hidden="true"></i> ' + message
+      // Use materialize toast method
+      Materialize.toast(toastContent, time)
     }
 
 

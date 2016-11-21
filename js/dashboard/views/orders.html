@@ -9,7 +9,8 @@
 
       <div class="col s5">
         <select name="orderVendorId" class="browser-default" ng-model="vm.orderVendorId" ng-change="vm.changeVendor()"required>
-          <option ng-repeat="vendor in vm.myVendors" value="{{vendor.uid}}">{{vendor.firstname}}</option>
+          <option value="" selected disabled>-- Please Select One --</option>
+          <option ng-repeat="vendor in vm.myVendors | orderBy:'firstname'" value="{{vendor.uid}}">{{vendor.firstname}}</option>
         </select>
       </div>
 
@@ -25,41 +26,46 @@
 
     </div><!-- End Select a Vendor -->
 
+    <div class="col s12 l5"><!-- Your Order -->
+
+      <h4>Your Order</h4>
+
+      <div class="row"> <!-- Products Table -->
+
+        <table class="responsive striped">
+          <thead>
+            <tr>
+                <th data-field="name">Name</th>
+                <th data-field="price">Price</th>
+                <th data-field="price">Quantity</th>
+                <th data-field="id"></th>
+                <th data-field="id">Total</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr ng-repeat="product in vm.orderSheet | orderBy:'name' ">
+              <td>{{product.name}}</td>
+              <td>{{product.price | currency:"$ ":2}}</td>
+              <th data-field="price">
+                <button ng-click="vm.updateQuantityLess(product)">-</button>
+                {{ product.quantity }}
+                <button ng-click="vm.updateQuantityPlus(product)">+</button>
+                </th>
+              <td>{{product.price * product.quantity}}</td>
+              <td><a class="btn-floating red" ng-click="vm.removeFromOrder(product.$id)"><i class="material-icons">delete</i></a></td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div><!-- End Products Table -->
+
+    </div><!-- End of Your Order -->
+
     <div class="row">
 
-      <div class="col s12 l5">
-        <h4>Your Order</h4>
-        <div class="row"> <!-- Products Table -->
-          <table class="responsive striped">
-            <thead>
-              <tr>
-                  <th data-field="name">Name</th>
-                  <th data-field="price">Price</th>
-                  <th data-field="price">Quantity</th>
-                  <th data-field="id"></th>
-                  <th data-field="id">Total</th>
-              </tr>
-            </thead>
+      <div class="col s12 l7"><!-- Add Products -->
 
-            <tbody>
-              <tr ng-repeat="product in vm.orderSheet | orderBy:'name' ">
-                <td>{{product.name}}</td>
-                <td>{{product.price | currency:"$ ":2}}</td>
-                <th data-field="price">
-                  <button ng-click="vm.updateQuantityLess(product)">-</button>
-                  {{ product.quantity }}
-                  <button ng-click="vm.updateQuantityPlus(product)">+</button>
-                  </th>
-                <td>{{product.price * product.quantity}}</td>
-                <td><a class="btn-floating red" ng-click="vm.removeFromOrder(product.$id)"><i class="material-icons">delete</i></a></td>
-              </tr>
-            </tbody>
-          </table>
-        </div><!-- End Products Table -->
-
-      </div>
-
-      <div class="col s12 l7">
         <h4>Add Products</h4>
 
 
@@ -101,6 +107,6 @@
               </tbody>
             </table>
           </div><!-- End Products Table -->
-      </div>
+      </div><!-- End Add Products -->
 
     </div>

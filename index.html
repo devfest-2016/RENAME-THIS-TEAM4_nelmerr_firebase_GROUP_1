@@ -32,13 +32,13 @@
   <!-- Angular Sanitaze -->
   <script type="text/javascript" src="/bower_components/angular-sanitize/angular-sanitize.js"></script>
 
-  <title>VendoMatic</title>
+  <title>Vendo</title>
 
   <!-- Navbar -->
    <div ng-controller="AuthenticationController as vm">
      <div class="navbar-fixed">
        <nav class="light-blue lighten-1" role="navigation">
-         <div class="nav-wrapper"><a id="logo-container" ui-sref="home" class="brand-logo">VENDOMATIC</a>
+         <div class="nav-wrapper"><a id="logo-container" ui-sref="home" class="brand-logo">VENDO</a>
            <ul class="right hide-on-med-and-down">
              <li ng-if="vm.currentUser" class="ng-animate-disabled"><a ng-click="vm.logout()">Logout</a></li>
              <li ng-if="!vm.currentUser" class="ng-animate-disabled"><a ui-sref="registration">Register</a></li>
