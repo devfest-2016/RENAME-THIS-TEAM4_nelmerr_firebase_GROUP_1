@@ -137,6 +137,7 @@
           vm.currentVendorProducts = currentVendorProductsArray
           // Clear order sheet
           vm.orderSheet = []
+          vm.total = 0
         }
       }
     }
