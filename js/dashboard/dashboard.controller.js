@@ -61,7 +61,7 @@
         // Refresh Page
         $state.go('dashboard.products', {}, { reload: true })
         // Display success message
-        onScreenMesage('check-circle', 'Product Added Succesfuly')
+        OnScreenMessage('check-circle', 'Product Added Succesfuly')
       })
       .catch(function (error) {
         console.error(error);
@@ -74,7 +74,7 @@
       productObj.$remove()
       .then(function (data) {
         // Display success message
-        onScreenMesage('check-circle', 'Product Removed Succesfuly')
+        OnScreenMessage('check-circle', 'Product Removed Succesfuly')
       })
       .catch(function (error) {
         console.error(error);
@@ -93,14 +93,14 @@
       for (var i = 0; i < vendorsArray.length; i++) {
         if (vendorsArray[i].uid === vendor.uid) {
           // Display success message
-          onScreenMesage('exclamation-triangle', 'This user is already a favorite', 'yellow')
+          OnScreenMessage('exclamation-triangle', 'This user is already a favorite', 'yellow')
           return
         }
       }
       vendorsArray.$add(vendor)
       .then(function (data) {
         // Display success message
-        onScreenMesage('check-circle', 'Vendor Added to Favorites')
+        OnScreenMessage('check-circle', 'Vendor Added to Favorites')
       })
       .catch(function (error) {
         console.error(error);
@@ -113,7 +113,7 @@
       vendorObject.$remove()
       .then(function (data) {
           // Display success message
-          onScreenMesage('check-circle', 'Vendor Removed Succesfuly')
+          OnScreenMessage('check-circle', 'Vendor Removed Succesfuly')
         })
         .catch(function (error) {
           console.error(error);
@@ -146,7 +146,7 @@
       for (var i = 0; i < vm.orderSheet.length; i++) {
         if (vm.orderSheet[i].$id === product.$id) {
           // Display success message
-          onScreenMesage('exclamation-triangle', 'Item Already in order please update quantity', 'yellow', 4000)
+          OnScreenMessage('exclamation-triangle', 'Item Already in order please update quantity', 'yellow', 4000)
           return
         }
       }
@@ -215,7 +215,7 @@
       .then(function () {
         myOrdersAray.$add(finalOrder)
         // Display success message
-        onScreenMesage('check-circle', 'Order sent succsesfully')
+        OnScreenMessage('check-circle', 'Order sent succsesfully')
         // Refresh Page
         $state.go('dashboard.orders', {}, {reload: true});
       })
@@ -225,7 +225,7 @@
     }
 
     // DISPLAY ON SCREEN MESSAGE (using fontawesome icon names)
-    function onScreenMesage(icon, message, iconColor = "green", time = 3000) {
+    function OnScreenMessage(icon, message, iconColor = "green", time = 3000) {
       // Define toast HTML content
       var toastContent = '<i style="color: ' + iconColor + ';" class="fa fa-' + icon + ' fa-lg" aria-hidden="true"></i> ' + message
       // Use materialize toast method
