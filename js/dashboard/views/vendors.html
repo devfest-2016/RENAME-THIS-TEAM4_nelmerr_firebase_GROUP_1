@@ -5,31 +5,69 @@
   <div class="col s12 m12 l5"><!-- My Vendors -->
     <h4>My Vendors</h4>
 
-    <ul class="collection">
+    <div class="row"> <!-- search box -->
+      <div>
+        <nav style="background-color: white;">
+         <div class="nav-wrapper">
+           <form>
+             <div class="input-field" style="color:black;">
+               <input id="search"
+                      type="search"
+                      placeholder="Search your vendor here"
+                      ng-model="vm.searchMyVendors">
+               <label for="search"><i style="color:black;"class="material-icons">search</i></label>
+             </div>
+           </form>
+         </div>
+       </nav>
+      </div>
+    </div>  <!-- end search box -->
 
-      <li class="collection-item avatar" ng-repeat="vendor in vm.myVendors | orderBy:'firstname'">
+    <ul class="collection"><!-- My Vendors List -->
+      <li class="collection-item avatar"
+          ng-repeat="vendor in vm.myVendors | orderBy:'firstname' | filter:{firstname:vm.searchMyVendors}">
         <i class="material-icons circle blue">perm_identity</i>
         <span class="title">{{vendor.firstname}}</span>
         <p>{{vendor.email}}</p>
-        <a ng-click="vm.deleteVendor(vendor.$id)" class="secondary-content btn-floating red"><i class="material-icons">delete</i></a>
+        <a ng-click="vm.deleteVendor(vendor.$id)"
+           class="secondary-content btn-floating red">
+          <i class="material-icons">delete</i></a>
       </li>
-
-    </ul>
+    </ul><!-- End of My Vendors List -->
 
   </div><!-- End My Vendors -->
 
   <div class="col s12 m12 l7"><!-- All Vendors -->
     <h4>Search for Vendors</h4>
 
-    <ul class="collection">
+    <div class="row"> <!-- search box -->
+      <div>
+        <nav style="background-color: white;">
+         <div class="nav-wrapper">
+           <form>
+             <div class="input-field" style="color:black;">
+               <input id="search"
+                       type="search"
+                       placeholder="Search vendor here"
+                       ng-model="vm.searchAllVendors">
+               <label for="search"><i style="color:black;"class="material-icons">search</i></label>
+             </div>
+           </form>
+         </div>
+       </nav>
+      </div>
+    </div>  <!-- end search box -->
 
-      <li class="collection-item avatar" ng-repeat="vendor in vm.users | filter: {role: 'vendor'}">
+    <ul class="collection">
+      <li class="collection-item avatar"
+          ng-repeat="vendor in vm.users | orderBy:'firstname' | filter: {firstname:vm.searchAllVendors, role: 'vendor'}">
         <i class="material-icons circle blue">perm_identity</i>
         <span class="title">{{vendor.firstname}}</span>
         <p>{{vendor.email}}</p>
-        <a ng-click="vm.addVendor(vendor)" class="secondary-content btn-floating green"><i class="material-icons">add</i></a>
+        <a ng-click="vm.addVendor(vendor)"
+           class="secondary-content btn-floating green">
+          <i class="material-icons">add</i></a>
       </li>
-
     </ul>
 
   </div><!-- End All Vendors -->
