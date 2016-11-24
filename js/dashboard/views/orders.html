@@ -7,7 +7,7 @@
         <p>Select a Vendor</p>
       </div>
 
-      <div class="col s5">
+      <div class="col s9 l5">
         <select name="orderVendorId" class="browser-default" ng-model="vm.orderVendorId" ng-change="vm.changeVendor()"required>
           <option value="" selected disabled>-- Please Select One --</option>
           <option ng-repeat="vendor in vm.myVendors | orderBy:'firstname'" value="{{vendor.uid}}">{{vendor.firstname}}</option>
@@ -15,7 +15,7 @@
       </div>
 
 
-      <div class="input-field col s4">
+      <div class="input-field col s12 m12 l4">
         <button type="submit"
                 class="waves-effect waves-light btn pull-right"
                 ng-click="vm.sendOrder()"

@@ -79,8 +79,6 @@
             console.log('USER LOGGED IN');
             // Go to success page
             $state.go('dashboard');
-            // Clear login fields
-            vm.loginUser = {};
         }
 
         function handleError(error) {
@@ -92,7 +90,7 @@
 
         // TODO LOGIN WITH GOOGLE
         function loginWithGoogle() {
-
+          alert("Sorry, this button is currently under construction")
         }
 
         // LOGOUT

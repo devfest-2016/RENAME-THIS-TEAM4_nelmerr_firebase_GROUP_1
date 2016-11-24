@@ -19,6 +19,13 @@
       $animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/);
     })
     .run(function($rootScope, $state) {
+
+      // SCROLL TO TOP ON STATE CHANGE
+      $rootScope.$on("$stateChangeSuccess", function (event, currentRoute, previousRoute) {
+          window.scrollTo(0, 0);
+      });
+
+      // REDIRECT USER TO LOGIN PAGE AND ASK TO LOGIN ON UNAUTHORIZED VIEWS
       $rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState, fromParams, error) {
         // Toast HTML Message Conntent 'Please Login'
         var toastContent = '<i style="color: yellow;" class="fa fa-exclamation-triangle fa-lg" aria-hidden="true"></i> Please Log in'
